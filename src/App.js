@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
+import Login from "./pages/LoginPage/LoginPage"
+import Dashboard from "./pages/Dashboard"
+import Admin from "./pages/Admin"
+import ProfilePage from "./pages/ProfilePage"
+import {Routes,Route} from "react-router-dom"
+import AddStudent from './pages/AddStudent'
+import UpdatePage from './pages/UpdatePage'
+import { RequireAuth } from 'react-auth-kit'
 
-function App() {
+export default function App() {
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+    <Routes>
+      <Route exact path="/" element = {<Login />}/>
+      <Route exact path="/dashboard" element= {<RequireAuth loginPath = "/">
+        <Dashboard />
+      </RequireAuth>}/>
+      <Route exact path="/addstudent" element= {<RequireAuth loginPath = "/">
+        <AddStudent />
+      </RequireAuth>}/>
+
+      <Route exact path="/profilepage/:id" element= {<RequireAuth loginPath = "/">
+        <ProfilePage />
+      </RequireAuth>}/>
+
+      <Route exact path="/updatepage/:id" element= {<RequireAuth loginPath = "/">
+        <UpdatePage />
+      </RequireAuth>}/>
+    </Routes>
+  
+   
+  )
+}
